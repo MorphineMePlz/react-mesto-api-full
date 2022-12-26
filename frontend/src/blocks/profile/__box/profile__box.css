@@ -1,0 +1,10 @@
+.profile__box {
+  max-width: 100%;
+  display: flex;
+}
+
+@media screen and (max-width: 400px) {
+  .profile__box {
+    max-width: 100%;
+  }
+}

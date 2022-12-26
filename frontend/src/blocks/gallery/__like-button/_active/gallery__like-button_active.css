@@ -1,0 +1,7 @@
+.gallery__like-button_active {
+  background-image: url(../../../../images/icons/like-black.svg);
+}
+
+.gallery__like-button-loading {
+  background-image: url(../../../../images/loader.svg);
+}

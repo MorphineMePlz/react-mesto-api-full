@@ -1,0 +1,5 @@
+.gallery__image-container {
+  max-height: 282px;
+  overflow: hidden;
+  width: 100%;
+}

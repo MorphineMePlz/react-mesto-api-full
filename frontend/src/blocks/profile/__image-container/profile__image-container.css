@@ -1,0 +1,21 @@
+.profile__image-container {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-right: 30px;
+  overflow: hidden;
+  position: relative;
+}
+
+.profile__image-container:hover .profile__edit-button-avatar {
+  display: block;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 320px) {
+  .profile__image-container {
+    align-items: center;
+    margin-right: 0;
+    margin-bottom: 22px;
+  }
+}
