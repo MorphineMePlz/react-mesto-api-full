@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
@@ -23,6 +24,8 @@ const { validateLogin } = require('./middlewares/validator');
 const { PORT = 3000 } = process.env;
 
 const app = express();
+app.use(cors());
+
 app.use(express.json());
 app.use(helmet());
 app.use(cookieParser());

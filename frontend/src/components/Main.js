@@ -14,54 +14,56 @@ function Main({
   const currentUser = useContext(CurrentUserContext);
 
   return (
-    <main className="main">
-      <section className="profile">
-        <div className="profile__container">
-          <div className="profile__image-container">
-            <img
-              src={currentUser.avatar}
-              alt={currentUser.name}
-              className="profile__image"
-            />
-            <button
-              type="button"
-              className="profile__edit-button-avatar"
-              onClick={onEditAvatar}
-            ></button>
-          </div>
-          <div className="profile__info-container">
-            <div className="profile__box">
-              <h1 className="profile__title">{currentUser.name}</h1>
+    currentUser && (
+      <main className="main">
+        <section className="profile">
+          <div className="profile__container">
+            <div className="profile__image-container">
+              <img
+                src={currentUser.avatar}
+                alt={currentUser.name}
+                className="profile__image"
+              />
               <button
                 type="button"
-                className="profile__edit-button"
-                onClick={onEditProfile}
+                className="profile__edit-button-avatar"
+                onClick={onEditAvatar}
               ></button>
             </div>
-            <p className="profile__profession">{currentUser.about}</p>
+            <div className="profile__info-container">
+              <div className="profile__box">
+                <h1 className="profile__title">{currentUser.name}</h1>
+                <button
+                  type="button"
+                  className="profile__edit-button"
+                  onClick={onEditProfile}
+                ></button>
+              </div>
+              <p className="profile__profession">{currentUser.about}</p>
+            </div>
           </div>
-        </div>
-        <button
-          type="button"
-          className="profile__plus-button"
-          onClick={onAddPlace}
-        ></button>
-      </section>
-      <section className="gallery">
-        <ul className="gallery__list">
-          {cards.length > 0 &&
-            cards.map((card) => (
-              <Card
-                card={card}
-                key={card._id}
-                onCardClick={onHandleCardClick}
-                onCardLike={onCardLike}
-                onCardDelete={onCardDelete}
-              />
-            ))}
-        </ul>
-      </section>
-    </main>
+          <button
+            type="button"
+            className="profile__plus-button"
+            onClick={onAddPlace}
+          ></button>
+        </section>
+        <section className="gallery">
+          <ul className="gallery__list">
+            {cards.length > 0 &&
+              cards.map((card) => (
+                <Card
+                  card={card}
+                  key={card._id}
+                  onCardClick={onHandleCardClick}
+                  onCardLike={onCardLike}
+                  onCardDelete={onCardDelete}
+                />
+              ))}
+          </ul>
+        </section>
+      </main>
+    )
   );
 }
 

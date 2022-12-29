@@ -6,6 +6,11 @@
 
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);
+@import url(./blocks/header/__link/header__link.css);
+@import url(./blocks/header/__link-item/header__link-item.css);
+@import url(./blocks/header/__button/header__button.css);
+@import url(./blocks/header/__email-container/header__email-container.css);
+@import url(./blocks/header/__container/header__container.css);
 
 /* profile */
 
@@ -64,3 +69,17 @@
 @import url(./blocks/popup/__confirmation-title/popup__confirmation-title.css);
 @import url(./blocks/popup/__submit-button/_loading/popup__submit-button_loading.css);
 @import url(./blocks/popup/__submit-button/_confirm/popup__submit-button_confirm.css);
+
+/* authorization */
+@import url(./blocks/authorization/authorization.css);
+@import url(./blocks/authorization/__heading/authorization__heading.css);
+@import url(./blocks/authorization/__form/authorization__form.css);
+@import url(./blocks/authorization/__input/authorization__input.css);
+@import url(./blocks/authorization/__submit/authorization__submit.css);
+@import url(./blocks/authorization/__submit-button/authorization__submit-button.css);
+@import url(./blocks/authorization/__link/authorization__link.css);
+
+/* tooltip */
+@import url(./blocks/popup/__tooltip/tooltip.css);
+@import url(./blocks/popup/__tooltip/__tooltip-image/popup__tooltip-image.css);
+@import url(./blocks/popup/__tooltip/__tooltip-heading/popup__tooltip-heading.css);

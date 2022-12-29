@@ -1,0 +1,16 @@
+.authorization__submit {
+  height: 50px;
+  border-radius: 2px;
+  border: none;
+  font-size: 18px;
+  line-height: 22px;
+  color: black;
+  margin: 200px 0 0;
+  width: 100%;
+  transition: 0.2s;
+}
+
+.authorization__submit:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}

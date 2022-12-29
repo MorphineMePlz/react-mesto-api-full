@@ -9,9 +9,11 @@ function ProfilePopup({ onClose, isOpen, onUpdateUser }) {
   const currentUser = React.useContext(CurrentUserContext);
 
   React.useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
-  }, [currentUser]);
+    if (currentUser) {
+      setName(currentUser.name || "Загрузка...");
+      setDescription(currentUser.about || "Загрузка...");
+    }
+  }, [currentUser, isOpen]);
 
   function handleNameChange(evt) {
     setName(evt.target.value);

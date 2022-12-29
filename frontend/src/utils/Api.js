@@ -6,7 +6,7 @@ class Api {
     this._headers = setting.headers;
   }
 
-  handelResponse(res) {
+  handleResponse(res) {
     if (!res.ok) {
       return Promise.reject(`Ошибка: ${res.status} - ${res.statusText}`);
     }
@@ -17,14 +17,14 @@ class Api {
     return fetch(`${this._address}/users/me`, {
       method: "GET",
       headers: this._headers,
-    }).then((res) => this.handelResponse(res));
+    }).then((res) => this.handleResponse(res));
   }
 
   getInitialCards() {
     return fetch(`${this._address}/cards`, {
       method: "GET",
       headers: this._headers,
-    }).then((res) => this.handelResponse(res));
+    }).then((res) => this.handleResponse(res));
   }
 
   editUserInformation({ about, name }) {
@@ -35,7 +35,7 @@ class Api {
         name,
         about: about,
       }),
-    }).then((res) => this.handelResponse(res));
+    }).then((res) => this.handleResponse(res));
   }
 
   addNewCard({ name, link }) {
@@ -46,35 +46,35 @@ class Api {
         name,
         link,
       }),
-    }).then((res) => this.handelResponse(res));
+    }).then((res) => this.handleResponse(res));
   }
 
   deleteOwnCard(id) {
     return fetch(`${this._address}/cards/${id}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((res) => this.handelResponse(res));
+    }).then((res) => this.handleResponse(res));
   }
 
   likeCard(id) {
     return fetch(`${this._address}/cards/${id}/likes`, {
       method: "PUT",
       headers: this._headers,
-    }).then((res) => this.handelResponse(res));
+    }).then((res) => this.handleResponse(res));
   }
 
   removeCardLike(id) {
     return fetch(`${this._address}/cards/${id}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((res) => this.handelResponse(res));
+    }).then((res) => this.handleResponse(res));
   }
 
   changeLikeCardStatus(cardId, isNotLiked) {
     return fetch(`${this._address}/cards/${cardId}/likes`, {
       method: isNotLiked ? "PUT" : "DELETE",
       headers: this._headers,
-    }).then((res) => this.handelResponse(res));
+    }).then((res) => this.handleResponse(res));
   }
 
   changeAvatar(data) {
@@ -84,7 +84,7 @@ class Api {
       body: JSON.stringify({
         avatar: data.avatar,
       }),
-    }).then((res) => this.handelResponse(res));
+    }).then((res) => this.handleResponse(res));
   }
 }
 
