@@ -5,6 +5,8 @@ import { Link, useLocation } from "react-router-dom";
 function Header({ handleLogout, currentUserEmail, isUserAuth }) {
   const [isLink, setLink] = useState("");
   const [isLinkText, setLinkText] = useState("");
+  const [isDefaultRoute, setDefaultRoute] = useState(false);
+
 
   const location = useLocation();
   const currentLocation = location.pathname;
@@ -14,16 +16,21 @@ function Header({ handleLogout, currentUserEmail, isUserAuth }) {
       case "/sign-up":
         setLink("/login");
         setLinkText("Войти");
+        setDefaultRoute(false);
         break;
       case "/login":
         setLink("/sign-up");
         setLinkText("Регистрация");
-        break;
+        setDefaultRoute(false);
+        break; 
       default:
         setLink("/");
         setLinkText("На главную");
+        isUserAuth && setDefaultRoute(true);
+
     }
   }, [currentLocation, isUserAuth]);
+  
 
   return (
     <header className="header">
@@ -43,14 +50,13 @@ function Header({ handleLogout, currentUserEmail, isUserAuth }) {
         {currentUserEmail && (
           <span className="header__email-container">{currentUserEmail}</span>
         )}
-        {currentUserEmail ? (
+        {isDefaultRoute ? (
           <button className="header__button" onClick={handleLogout}>
             Выйти
           </button>
         ) : (
           <Link
             to={isLink}
-            onClick={handleLogout}
             className="header__link-item"
           >
             {isLinkText}

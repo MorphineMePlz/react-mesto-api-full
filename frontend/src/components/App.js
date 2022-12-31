@@ -16,7 +16,6 @@ import { api } from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import { authApi } from "../utils/AuthApi";
-import { useCallback } from "react";
 
 const NAVIGATION_DELAY = 2000;
 
@@ -36,48 +35,49 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(DEFAULT_CARD);
   const [currentUser, setCurrentUser] = useState(null);
 
-  const navigate = useNavigate();
-
-  const checkToken = useCallback(() => {
-    const token = localStorage.getItem("jwt");
-
-    if (token) {
-      authApi
-        .checkTokenValidity(token)
-        .then((res) => {
-          setUserAuth(true);
-          setCurrentUserEmail(res.data.email);
-        })
-        .catch(() => {
-          setUserAuth(false);
-        });
-    }
-  }, []);
+  const history = useNavigate()
 
   useEffect(() => {
-    Promise.all([api.getUserInformation(), api.getInitialCards()])
+    authApi
+      .checkTokenValidity()
+      .then((data) => {
+        if(data) {
+        setUserAuth(true)
+        setCurrentUser(data)
+        history('/')
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [history, isUserAuth])
+
+
+  useEffect(() => {
+    if (isUserAuth) {
+      Promise.all([api.getUserInformation(), api.getInitialCards()])
       .then(([userData, initialCards]) => {
-        localStorage.setItem("userId", userData._id);
+        setUserAuth(true)
+        setCurrentUserEmail(userData.email)
         setCurrentUser(userData);
         setCards(initialCards);
-        checkToken();
+        history('/')
       })
       .catch(() => {
         setCurrentUser(null);
         setUserAuth(false);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (isUserAuth) {
-      checkToken();
-      navigate("/");
     }
-  }, [checkToken, isUserAuth, navigate]);
+  }, [history, isUserAuth]);
+
+
+
+
+
+
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
@@ -95,7 +95,7 @@ function App() {
       .deleteOwnCard(card._id)
       .then(() => {
         setCards((state) =>
-          state.filter((c) => (c._id === card._id ? false : true))
+        state.filter((c) => (c._id !== card._id))
         );
       })
       .catch((error) => {
@@ -170,13 +170,15 @@ function App() {
     evt.preventDefault();
     authApi
       .signUp({ email, password })
-      .then(() => {
-        setRequestFailed(false);
-        setTooltipOpen(true);
-        setTimeout(() => {
-          navigate("/login");
-          setTooltipOpen(false);
-        }, NAVIGATION_DELAY);
+      .then((res) => {
+        if (res.statusCode !== 400) {
+          setRequestFailed(false);
+          setTooltipOpen(true);
+          setTimeout(() => {
+            history("/login");
+            setTooltipOpen(false);
+          }, NAVIGATION_DELAY);
+        }
       })
       .catch(() => {
         setRequestFailed(true);
@@ -188,22 +190,26 @@ function App() {
     evt.preventDefault();
     authApi
       .signIn({ email, password })
-      .then((res) => {
-        localStorage.setItem("jwt", res.token);
+      .then(() => {
+        setCurrentUserEmail(email)
         setUserAuth(true);
+        history('/')
       })
-      .catch(() => {
+      .catch((err) => {
         setRequestFailed(true);
         setTooltipOpen(true);
+        console.log(err)
       });
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("userId");
-    localStorage.removeItem("jwt");
-    setCurrentUserEmail(null);
-    setUserAuth(false);
-    navigate("/login");
+    authApi
+    .logOut()
+    .then((res) => {
+      setCurrentUserEmail(null);
+      setUserAuth(false);
+      history("/login");
+    })
   };
 
   return (

@@ -1,4 +1,4 @@
-import { USER_TOKEN, BASE_URL } from "./constants";
+import { BASE_URL } from "./constants";
 
 class Api {
   constructor(setting) {
@@ -16,6 +16,7 @@ class Api {
   getUserInformation() {
     return fetch(`${this._address}/users/me`, {
       method: "GET",
+      credentials: 'include',
       headers: this._headers,
     }).then((res) => this.handleResponse(res));
   }
@@ -23,6 +24,7 @@ class Api {
   getInitialCards() {
     return fetch(`${this._address}/cards`, {
       method: "GET",
+      credentials: 'include',
       headers: this._headers,
     }).then((res) => this.handleResponse(res));
   }
@@ -30,6 +32,7 @@ class Api {
   editUserInformation({ about, name }) {
     return fetch(`${this._address}/users/me`, {
       method: "PATCH",
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         name,
@@ -41,6 +44,7 @@ class Api {
   addNewCard({ name, link }) {
     return fetch(`${this._address}/cards`, {
       method: "POST",
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         name,
@@ -52,6 +56,7 @@ class Api {
   deleteOwnCard(id) {
     return fetch(`${this._address}/cards/${id}`, {
       method: "DELETE",
+      credentials: 'include',
       headers: this._headers,
     }).then((res) => this.handleResponse(res));
   }
@@ -59,6 +64,7 @@ class Api {
   likeCard(id) {
     return fetch(`${this._address}/cards/${id}/likes`, {
       method: "PUT",
+      credentials: 'include',
       headers: this._headers,
     }).then((res) => this.handleResponse(res));
   }
@@ -66,6 +72,7 @@ class Api {
   removeCardLike(id) {
     return fetch(`${this._address}/cards/${id}/likes`, {
       method: "DELETE",
+      credentials: 'include',
       headers: this._headers,
     }).then((res) => this.handleResponse(res));
   }
@@ -73,6 +80,7 @@ class Api {
   changeLikeCardStatus(cardId, isNotLiked) {
     return fetch(`${this._address}/cards/${cardId}/likes`, {
       method: isNotLiked ? "PUT" : "DELETE",
+      credentials: 'include',
       headers: this._headers,
     }).then((res) => this.handleResponse(res));
   }
@@ -80,6 +88,7 @@ class Api {
   changeAvatar(data) {
     return fetch(`${this._address}/users/me/avatar`, {
       method: "PATCH",
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         avatar: data.avatar,
@@ -90,8 +99,8 @@ class Api {
 
 export const api = new Api({
   baseUrl: BASE_URL,
+  credentials: 'include',
   headers: {
-    Authorization: USER_TOKEN,
     "Content-Type": "application/json",
   },
 });

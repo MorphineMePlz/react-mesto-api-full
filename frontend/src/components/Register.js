@@ -11,7 +11,6 @@ function Register({ onSubmit }) {
       password,
     });
   };
-
   return (
     <div className="authorization">
       <h2 className="authorization__heading">Регистрация</h2>
