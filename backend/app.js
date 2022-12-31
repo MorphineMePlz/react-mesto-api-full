@@ -10,7 +10,7 @@ const router = require('./routes/users');
 
 const routerCards = require('./routes/cards');
 const {
-  createUser, login,
+  createUser, login, logOut,
 
 } = require('./controllers/users');
 
@@ -24,7 +24,19 @@ const { validateLogin } = require('./middlewares/validator');
 const { PORT = 3000 } = process.env;
 
 const app = express();
-app.use(cors());
+const options = {
+  origin: [
+    'http://ageidar.nomoredomains.club/',
+    'https://ageidar.nomoredomains.club/',
+    'http://localhost:3001',
+    'http://localhost:3000',
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'origin'],
+  credentials: true,
+};
+
+app.use('*', cors(options));
 
 app.use(express.json());
 app.use(helmet());
@@ -34,6 +46,7 @@ app.use(requestLogger);
 
 app.post('/signup', validateLogin, createUser);
 app.post('/signin', validateLogin, login);
+app.post('/logout', logOut);
 
 app.use('/users', auth, router);
 app.use('/cards', auth, routerCards);

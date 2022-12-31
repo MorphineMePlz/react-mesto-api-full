@@ -61,8 +61,10 @@ module.exports.updateUser = (req, res, next) => {
     { name, about },
     { new: true, runValidators: true },
   ).orFail(() => new NotFoundError('Ничего не найдено'))
-    .then(() => {
-      res.send({ name, about });
+    .then((user) => {
+      res.send({
+        avatar: user.avatar, name, about, _id: user._id,
+      });
     })
     .catch((err) => {
       if ((err.name === 'ValidationError')) {
@@ -81,8 +83,10 @@ module.exports.updateAvatar = (req, res, next) => {
     { new: true, runValidators: true },
   )
     .orFail(() => new NotFoundError('Ничего не найдено'))
-    .then(() => {
-      res.send({ avatar });
+    .then((user) => {
+      res.send({
+        name: user.name, about: user.about, avatar, _id: user._id,
+      });
     })
     .catch((err) => {
       if ((err.name === 'ValidationError')) {
@@ -98,7 +102,6 @@ module.exports.login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, 'super-strong-secret', { expiresIn: '7d' });
-      console.log(token);
       res.cookie('jwt', token, { maxAge: 3600000, httpOnly: true, sameSite: true }).json({ message: 'Токен jwt передан в cookie' });
     }).catch((err) => {
       next(err);
@@ -113,5 +116,10 @@ module.exports.getUserInfo = (req, res, next) => {
       }
       res.status(STATUS_CREATED).send(user);
     })
+    .catch(next);
+};
+
+module.exports.logOut = (req, res, next) => {
+  res.clearCookie('jwt').send({ message: 'Вы вышли' })
     .catch(next);
 };

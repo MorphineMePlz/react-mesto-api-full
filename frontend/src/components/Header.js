@@ -27,7 +27,6 @@ function Header({ handleLogout, currentUserEmail, isUserAuth }) {
         setLink("/");
         setLinkText("На главную");
         isUserAuth && setDefaultRoute(true);
-
     }
   }, [currentLocation, isUserAuth]);
   

@@ -204,8 +204,8 @@ function App() {
 
   const handleLogout = () => {
     authApi
-    .logOut()
-    .then((res) => {
+    .logout()
+    .then(() => {
       setCurrentUserEmail(null);
       setUserAuth(false);
       history("/login");

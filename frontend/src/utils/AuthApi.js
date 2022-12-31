@@ -39,9 +39,7 @@ class AuthApi {
     }).then((res) => this.handleResponse(res));
   }
 
-
-  logOut = () => {
-    console.log("Breetox")
+  logout = () => {
     return fetch(`${BASE_URL}/logout`, {
       method: "POST",
       credentials: 'include',
@@ -59,13 +57,7 @@ class AuthApi {
       },
     }).then((res) => this.handleResponse(res));
   }
-
-
-
-
 }
-
-
 
 export const authApi = new AuthApi({
   baseUrl: BASE_URL,

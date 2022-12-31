@@ -1,11 +1,19 @@
-import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 function Register({ onSubmit }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-
+  const location = useLocation();
+  const currentLocation = location.pathname;
+ 
+  useEffect(()=> {
+    if(currentLocation === "/sign-up") {
+      setEmail("")
+      setPassword("")
+    }
+  }, [currentLocation])
 
   const handleSubmit = (evt) => {
     onSubmit(evt, {
