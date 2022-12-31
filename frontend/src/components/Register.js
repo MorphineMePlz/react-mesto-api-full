@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 function Register({ onSubmit }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+
 
   const handleSubmit = (evt) => {
     onSubmit(evt, {
