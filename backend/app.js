@@ -27,12 +27,10 @@ const { PORT = 3000 } = process.env;
 const app = express();
 // const options = {
 //   origin: [
-//     'http://api.ageidar.nomoredomains.club',
-//     'https://api.ageidar.nomoredomains.club',
-//     'http://localhost:3001',
-//     'http://localhost:3000',
 //     'http://ageidar.nomoredomains.club',
 //     'https://ageidar.nomoredomains.club',
+//     'http://localhost:3001',
+//     'http://localhost:3000',
 //   ],
 //   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
 //   allowedHeaders: ['Content-Type', 'origin'],
