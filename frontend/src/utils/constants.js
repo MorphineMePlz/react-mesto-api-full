@@ -31,4 +31,4 @@ export const classCreationSelectors = {
 };
 
 export const ESCAPE_KEY = "Escape";
-export const BASE_URL = "http://localhost:3000";
+export const BASE_URL = "https://api.ageidar.nomoredomains.club";

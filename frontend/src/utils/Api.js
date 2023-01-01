@@ -98,8 +98,7 @@ class Api {
 }
 
 export const api = new Api({
-  baseUrl: BASE_URL,
-  credentials: 'include',
+  baseUrl: "https://api.ageidar.nomoredomains.club",
   headers: {
     "Content-Type": "application/json",
   },

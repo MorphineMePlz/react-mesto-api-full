@@ -70,12 +70,6 @@ function App() {
     }
   }, [history, isUserAuth]);
 
-
-
-
-
-
-
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i === currentUser._id);
     api
