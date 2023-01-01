@@ -31,6 +31,7 @@ const allowedCors = [
   'http://api.ageidar.nomoredomains.club',
   'https://api.ageidar.nomoredomains.club',
   'http://localhost:3000',
+  'http://localhost:3001',
 ];
 
 const corsOptions = {
