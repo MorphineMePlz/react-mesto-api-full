@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-// const cors = require('cors');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
@@ -44,19 +44,21 @@ const app = express();
 
 // app.use(cors(cosrOptions));
 
-// const options = {
-//   origin: [
-//     'http://ageidar.nomoredomains.club/',
-//     'https://ageidar.nomoredomains.club/',
-//     'http://localhost:3001',
-//     'http://localhost:3000',
-//   ],
-//   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-//   allowedHeaders: ['Content-Type', 'origin'],
-//   credentials: true,
-// };
+const options = {
+  origin: [
+    'http://ageidar.nomoredomains.club/',
+    'https://ageidar.nomoredomains.club/',
+    'http://api.ageidar.nomoredomains.club',
+    'https://api.ageidar.nomoredomains.club',
+    'http://localhost:3001',
+    'http://localhost:3000',
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+  credentials: true,
+};
 
-// app.use('*', cors(options));
+app.use('*', cors(options));
 
 app.use(express.json());
 app.use(helmet());
