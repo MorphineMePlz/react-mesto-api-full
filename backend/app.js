@@ -25,18 +25,20 @@ const { validateLogin } = require('./middlewares/validator');
 const { PORT = 3000 } = process.env;
 
 const app = express();
-// // const options = {
-// //   origin: [
-// //     'http://localhost:3000',
-// //     'http://ageidar.nomoredomains.club',
-// //     'https://ageidar.nomoredomains.club',
-// //   ],
-//   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-//   allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
-//   credentials: true,
-// };
+const options = {
+  origin: [
+    'http://localhost:3000',
+    'http://ageidar.nomoredomains.club',
+    'https://ageidar.nomoredomains.club',
+    'http://api.ageidar.nomoredomains.club',
+    'https://api.ageidar.nomoredomains.club',
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+  credentials: true,
+};
 
-app.use(cors());
+app.use(cors(options));
 
 app.use(express.json());
 app.use(helmet());
