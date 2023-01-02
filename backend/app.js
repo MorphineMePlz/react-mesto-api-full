@@ -25,35 +25,37 @@ const { validateLogin } = require('./middlewares/validator');
 const { PORT = 3000 } = process.env;
 
 const app = express();
-// const allowedCors = [
-//   'http://localhost:3000',
-//   'http://ageidar.nomoredomains.club',
-//   'https://ageidar.nomoredomains.club',
-//   'http://api.ageidar.nomoredomains.club',
-//   'https://api.ageidar.nomoredomains.club',
-// ];
+const allowedCors = [
+  'http://localhost:3000',
+  'http://ageidar.nomoredomains.club',
+  'https://ageidar.nomoredomains.club',
+  'http://api.ageidar.nomoredomains.club',
+  'https://api.ageidar.nomoredomains.club',
+];
 
-// const cosrOptions = {
-//   origin: allowedCors,
-//   optionSuccessStatus: 200,
-//   credentials: true,
-// };
-
-// app.use(cors(cosrOptions));
-
-const options = {
-  origin: [
-    'http://ageidar.nomoredomains.club/',
-    'https://ageidar.nomoredomains.club/',
-    'http://localhost:3001',
-    'http://localhost:3000',
-  ],
-  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'origin'],
+const cosrOptions = {
+  origin: allowedCors,
+  optionSuccessStatus: 200,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
   credentials: true,
 };
 
-app.use('*', cors(options));
+app.use(cors(cosrOptions));
+
+// const options = {
+//   origin: [
+//     'http://ageidar.nomoredomains.club/',
+//     'https://ageidar.nomoredomains.club/',
+//     'http://localhost:3001',
+//     'http://localhost:3000',
+//   ],
+//   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+//   allowedHeaders: ['Content-Type', 'origin'],
+//   credentials: true,
+// };
+
+// app.use('*', cors(options));
 
 app.use(express.json());
 app.use(helmet());
