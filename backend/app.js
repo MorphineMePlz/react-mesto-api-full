@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
+// const cors = require('cors');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
@@ -25,23 +25,24 @@ const { validateLogin } = require('./middlewares/validator');
 const { PORT = 3000 } = process.env;
 
 const app = express();
-const allowedCors = [
-  'http://localhost:3000',
-  'http://ageidar.nomoredomains.club',
-  'https://ageidar.nomoredomains.club',
-  'http://api.ageidar.nomoredomains.club',
-  'https://api.ageidar.nomoredomains.club',
-];
+// const allowedCors = [
+//   'http://localhost:3000',
+//   'http://ageidar.nomoredomains.club',
+//   'https://ageidar.nomoredomains.club',
+//   'http://api.ageidar.nomoredomains.club',
+//   'https://api.ageidar.nomoredomains.club',
+// ];
 
-const cosrOptions = {
-  origin: allowedCors,
-  optionSuccessStatus: 200,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
-  credentials: true,
-};
+// const cosrOptions = {
+//   origin: allowedCors,
+//   optionSuccessStatus: 200,
+//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
+// eslint-disable-next-line max-len
+//   allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
+//   credentials: true,
+// };
 
-app.use(cors(cosrOptions));
+// app.use(cors(cosrOptions));
 
 // const options = {
 //   origin: [
