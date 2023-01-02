@@ -36,7 +36,6 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
   const history = useNavigate()
-  console.log(currentUser)
   useEffect(() => {
     if (isUserAuth) {
       Promise.all([api.getUserInformation(), api.getInitialCards()])
@@ -47,8 +46,6 @@ function App() {
         history('/')
       })
       .catch((err) => {
-        // setCurrentUser(null);
-        // setUserAuth(false);
         console.log(err)
       });
     }

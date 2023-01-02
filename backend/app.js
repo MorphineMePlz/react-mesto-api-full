@@ -43,22 +43,6 @@ const cosrOptions = {
 
 app.use(cors(cosrOptions));
 
-// const options = {
-//   origin: [
-//     'http://ageidar.nomoredomains.club/',
-//     'https://ageidar.nomoredomains.club/',
-//     'http://api.ageidar.nomoredomains.club',
-//     'https://api.ageidar.nomoredomains.club',
-//     'http://localhost:3001',
-//     'http://localhost:3000',
-//   ],
-//   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-//   allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
-//   credentials: true,
-// };
-
-// app.use('*', cors(options));
-
 app.use(express.json());
 app.use(helmet());
 app.use(cookieParser());
