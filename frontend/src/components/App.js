@@ -36,7 +36,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
   const history = useNavigate()
-
+  console.log(currentUser)
   useEffect(() => {
     if (isUserAuth) {
       Promise.all([api.getUserInformation(), api.getInitialCards()])
