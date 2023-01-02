@@ -60,6 +60,7 @@ export const authApi = new AuthApi({
   credentials: 'include',
   headers: {
     "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
   },
 });
 
