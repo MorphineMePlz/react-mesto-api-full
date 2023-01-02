@@ -43,18 +43,14 @@ class AuthApi {
     return fetch(`${BASE_URL}/logout`, {
       method: "POST",
       credentials: 'include',
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: this._headers,
     }).then((res) => this.handleResponse(res));
   }
   
   checkTokenValidity = () => {
     return fetch(`${BASE_URL}/users/me`, {
       credentials: 'include',
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: this._headers,
     }).then((res) => this.handleResponse(res));
   }
 }
@@ -63,7 +59,6 @@ export const authApi = new AuthApi({
   baseUrl: BASE_URL,
   credentials: 'include',
   headers: {
-    Accept: "application/json",
     "Content-Type": "application/json",
   },
 });
