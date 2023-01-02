@@ -38,12 +38,31 @@ function App() {
   const history = useNavigate()
 
   useEffect(() => {
+    if (isUserAuth) {
+      Promise.all([api.getUserInformation(), api.getInitialCards()])
+      .then(([userData, initialCards]) => {
+        setUserAuth(true)
+        setCurrentUser(userData);
+        setCards(initialCards);
+        history('/')
+      })
+      .catch((err) => {
+        // setCurrentUser(null);
+        // setUserAuth(false);
+        console.log(err)
+      });
+    }
+  }, [history, isUserAuth]);
+
+
+  useEffect(() => {
     authApi
       .checkTokenValidity()
       .then((data) => {
         if(data) {
         setUserAuth(true)
         setCurrentUser(data)
+        setCurrentUserEmail(data.email)
         history('/')
         }
       })
@@ -52,23 +71,6 @@ function App() {
       })
   }, [history, isUserAuth])
 
-
-  useEffect(() => {
-    if (isUserAuth) {
-      Promise.all([api.getUserInformation(), api.getInitialCards()])
-      .then(([userData, initialCards]) => {
-        setUserAuth(true)
-        setCurrentUserEmail(userData.email)
-        setCurrentUser(userData);
-        setCards(initialCards);
-        history('/')
-      })
-      .catch(() => {
-        setCurrentUser(null);
-        setUserAuth(false);
-      });
-    }
-  }, [history, isUserAuth]);
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i === currentUser._id);
