@@ -8,6 +8,8 @@ const {
   STATUS_CREATED,
 } = require('../utils/constants');
 
+const { JWT_SECRET } = process.env;
+
 module.exports.createUser = (req, res, next) => {
   const {
     name, about, avatar, email, password,
@@ -16,7 +18,7 @@ module.exports.createUser = (req, res, next) => {
     .then((hash) => User.create({
       name, about, avatar, email, password: hash,
     }))
-    .then((user) => res.status(STATUS_CREATED).send({
+    .then((user) => res.status(STATUS_CREATED).json({
       name: user.name,
       about: user.about,
       avatar: user.avatar,
@@ -101,7 +103,7 @@ module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, 'super-strong-secret', { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
       res.cookie('jwt', token, {
         maxAge: 3600000, httpOnly: true, sameSite: true, secure: true,
       }).json({ message: 'Токен jwt передан в cookies' });

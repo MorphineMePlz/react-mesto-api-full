@@ -1,4 +1,5 @@
 require('dotenv').config();
+const bodyParser = require('body-parser');
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -16,15 +17,15 @@ const {
 } = require('./controllers/users');
 
 const { notFoundError } = require('./controllers/notFound');
-const {
-  SERVER_ERROR,
-} = require('./utils/constants');
 const auth = require('./middlewares/auth');
 const { validateLogin } = require('./middlewares/validator');
+const { handleErrors } = require('./middlewares/handleErrors');
+const routerCrash = require('./errors/crashTest');
 
 const { PORT = 3000 } = process.env;
 
 const app = express();
+
 const allowedCors = [
   'http://localhost:3000',
   'http://ageidar.nomoredomains.club',
@@ -44,16 +45,13 @@ const cosrOptions = {
 app.use(cors(cosrOptions));
 
 app.use(express.json());
+app.use(bodyParser.json());
 app.use(helmet());
 app.use(cookieParser());
 
 app.use(requestLogger);
 
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
+app.use(routerCrash);
 
 app.post('/signup', validateLogin, createUser);
 app.post('/signin', validateLogin, login);
@@ -65,17 +63,7 @@ app.use('*', notFoundError);
 
 app.use(errorLogger);
 app.use(errors());
-
-app.use((err, req, res) => {
-  const { status = 500, message } = err;
-  res
-    .status(status)
-    .send({
-      message: status === SERVER_ERROR
-        ? 'Ошибка сервера'
-        : message,
-    });
-});
+app.use(handleErrors);
 
 async function start() {
   try {
